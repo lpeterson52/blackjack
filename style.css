@@ -1,16 +1,18 @@
-body{
-    font-family:Helvetica;
-    
+body {
+    font-family: Helvetica;
+
 }
-button{
-    color:white;
-    background-color:tomato;
+
+button {
+    color: rgb(255, 255, 255);
+    background-color: tomato;
     border-style: none;
-    font-size:50px;
-    width:200px;
-    height:100px;
-    border-radius:12px;
+    font-size: 50px;
+    width: 200px;
+    height: 100px;
+    border-radius: 12px;
 }
-button:active{
-    background-color:rgb(175, 69, 50);
+
+button:active {
+    background-color: rgb(175, 69, 50);
 }
