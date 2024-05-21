@@ -15,17 +15,21 @@
 
 
 <body>
-    <p id="demo">Hello World</p>
+    <p id="roll">Hello World</p>
+    <button type="button" class="smallbutton" onclick="setAuto()">auto</button>
     <h2>Highscore: </h2>
-    <h2 id="highscore"></h2>
-    <button type="button" id="wins" onclick="randint()">0</button>
-    <button type="button" onclick="setCalculatedOdds(document.getElementById('highscore').innerText)">Odds</button>
+    <h2 id="highscore">0</h2>
+    <button type="button" id="wins" onclick="randint()">0</button> <br>
+    <button type="button" class="smallbutton" onclick="setCalculatedOdds(document.getElementById('highscore').innerText)">Odds</button>
     <h2>Odds of getting high score:</h2>
     <h2 id="odds"></h2>
-
+    <h2>Number of Plays:</h2>
+    <h2 id="playcount">0</h2>
 
     <canvas id="barChart" width="800" height="200">
     </canvas>
+
+
     <script>
         // Get the 2D rendering context of the canvas
         let ctx = document
@@ -64,8 +68,8 @@
                 legend: {
                     display: false
                 },
-                tooltips:{
-                    enabled:false
+                tooltips: {
+                    enabled: false
                 },
                 plugins: {
                     title: {
@@ -83,11 +87,12 @@
         }
         let winstreak = 0;
         let highscore = 0;
+        let playcount = 0;
 
         let x = 0;
         function randint() {
             x = Math.random() * 100
-            document.getElementById("demo").innerHTML = x;
+            document.getElementById("roll").innerHTML = x;
             if (x > winstreak) {
                 winstreak++;
             }
@@ -95,13 +100,16 @@
                 if (winstreak > highscore) {
                     highscore = winstreak;
                 }
+                playcount++;
                 updateBarChart(winstreak);
                 winstreak = 0;
 
             }
             document.getElementById("wins").innerHTML = winstreak;
             document.getElementById("highscore").innerHTML = highscore;
+            document.getElementById("playcount").innerHTML = playcount;
         }
+        let auto = false;
         function calculateOdds(streak) {
             if (streak == 0) {
                 return 1 - (streak / 100);
@@ -109,10 +117,19 @@
             return (1 - (streak / 100)) * calculateOdds(streak - 1);
 
         }
+        function setAuto() {
+            auto = !auto;
+        }
+        setInterval(function () {
+            if (auto) {
+                randint()
+            }
+        }, 1)
 
         function setCalculatedOdds(streak) {
             document.getElementById("odds").innerHTML = calculateOdds(streak) * 100 + "%";
         }
+
     </script>
 </body>
 
